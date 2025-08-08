@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "target": "esnext",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx"
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.js",
+        "src/**/*.jsx"
+    ],
+}

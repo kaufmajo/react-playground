@@ -1,4 +1,6 @@
-export const todoItems = [
+import { type TodoItem } from "../types";
+
+export const todoItems: TodoItem[] = [
   {
     id: 1,
     text: "Item 1",
