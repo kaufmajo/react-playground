@@ -1,3 +1,4 @@
+import * as React from "react";
 import { type TodoItem } from "../../types";
 
 export function TodoList({ items }: { items: TodoItem[] }) {
@@ -11,20 +12,26 @@ export function TodoList({ items }: { items: TodoItem[] }) {
 }
 
 function TodoListEntry({ item }: { item: TodoItem }) {
+  const [isCompleted, setIsCompleted] = React.useState(item.completed);
+
+  function handleChange(event) {
+    setIsCompleted(!isCompleted);
+  }
+
   return (
     <li key={item.id}>
-      
       <input
         type="checkbox"
         id={`todo-checkbox-${item.id}`}
         title={`Mark "${item.text}" as completed`}
         className="mr-2"
+        checked={isCompleted}
+        onChange={handleChange}
       />
 
       <label htmlFor={`todo-checkbox-${item.id}`}>
-        <span className={item.completed ? "line-through" : ""}>{item.text}</span>
+        <span className={isCompleted ? "line-through" : ""}>{item.text}</span>
       </label>
-
     </li>
   );
 }
