@@ -5,21 +5,27 @@ export function TodoList({
   items,
   completed,
   setCompleted,
+  searchQuery,
 }: {
   items: TodoItem[];
   completed: TodoItem["id"][];
   setCompleted: Dispatch<SetStateAction<TodoItem["id"][]>>;
+  searchQuery: string;
 }) {
   return (
     <ul className="">
-      {items.map((item) => (
-        <TodoListEntry
-          key={item.id}
-          item={item}
-          completed={completed}
-          setCompleted={setCompleted}
-        />
-      ))}
+      {items
+        .filter((item) =>
+          item.text.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        .map((item) => (
+          <TodoListEntry
+            key={item.id}
+            item={item}
+            completed={completed}
+            setCompleted={setCompleted}
+          />
+        ))}
     </ul>
   );
 }
