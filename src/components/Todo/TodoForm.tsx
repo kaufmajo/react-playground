@@ -54,7 +54,9 @@ function SubmitButton() {
 
   return (
     <button type="submit" className="ml-4 px-2 ring" disabled={status.pending}>
-      {status.pending ? "Adding..." : "Add Todo"}
+      {status.pending
+        ? `Adding "${status.data?.get("todo") || "Todo"}"`
+        : "Add Todo"}
     </button>
   );
 }
