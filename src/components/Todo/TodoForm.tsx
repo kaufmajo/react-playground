@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { type TodoItem } from "../../types";
+import { useFormStatus } from "react-dom";
 
 export function TodoForm({
   todoItems,
@@ -14,7 +15,9 @@ export function TodoForm({
       <form
         className="mt-4 flex-col items-start gap-4"
         method="post"
-        action={(formData: FormData) => {
+        action={async (formData: FormData) => {
+          await new Promise((resolve) => setTimeout(resolve, 2000)); // just simulating a delay
+
           console.log(Object.fromEntries(formData));
           const newTodoItem: TodoItem = {
             id: todoItems.length + 1,
@@ -40,10 +43,18 @@ export function TodoForm({
           required
           className="rounded-sm bg-white ring"
         />
-        <button type="submit" className="ml-4 px-2 ring">
-          Submit
-        </button>
+        <SubmitButton />
       </form>
     </div>
+  );
+}
+
+function SubmitButton() {
+  const status = useFormStatus();
+
+  return (
+    <button type="submit" className="ml-4 px-2 ring" disabled={status.pending}>
+      {status.pending ? "Adding..." : "Add Todo"}
+    </button>
   );
 }

@@ -39,23 +39,32 @@ function TodoListEntry({
   completed: TodoItem["id"][];
   setCompleted: Dispatch<SetStateAction<TodoItem["id"][]>>;
 }) {
+  const [pending, setPending] = useState(false);
+
   return (
     <li key={item.id}>
-      <input
-        type="checkbox"
-        id={`todo-checkbox-${item.id}`}
-        title={`Mark "${item.text}" as completed`}
-        className="mr-2"
-        checked={completed.includes(item.id)}
-        onChange={() => {
-          if (completed.includes(item.id)) {
-            setCompleted(completed.filter((id) => id !== item.id));
-          } else {
-            setCompleted([...completed, item.id]);
-          }
-        }}
-      />
-
+      {pending ? (
+        <span className="text-gray-500">Updating...</span>
+      ) : (
+        <input
+          type="checkbox"
+          id={`todo-checkbox-${item.id}`}
+          title={`Mark "${item.text}" as completed`}
+          className="mr-2"
+          checked={completed.includes(item.id)}
+          onChange={() => {
+            setPending(true);
+            setTimeout(() => { // // just simulating a delay
+              if (completed.includes(item.id)) {
+                setCompleted(completed.filter((id) => id !== item.id));
+              } else {
+                setCompleted([...completed, item.id]);
+              }
+              setPending(false);
+            }, 2000);
+          }}
+        />
+      )}
       <label htmlFor={`todo-checkbox-${item.id}`}>
         <span className={completed.includes(item.id) ? "line-through" : ""}>
           {item.text}
