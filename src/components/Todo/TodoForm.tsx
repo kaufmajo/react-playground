@@ -50,7 +50,7 @@ export function TodoForm({
 }
 
 function SubmitButton() {
-  const status = useFormStatus();
+  const status = useFormStatus(); // This hook provides the status of the form submission ... can only be used inside a form child component
 
   return (
     <button type="submit" className="ml-4 px-2 ring" disabled={status.pending}>
