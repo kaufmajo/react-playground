@@ -1,13 +1,15 @@
 import { TodoList } from "./Todo/TodoList";
-import { todoItems } from "../data/todos";
 import { useState } from "react";
 import { TodoItem } from "../types";
-import { Stats } from "./Todo/Stats";
-import { Search } from "./Todo/Search";
+import { Stats } from "./Todo/TodoStats";
+import { Search } from "./Todo/TodoSearch";
+import { TodoForm } from "./Todo/TodoForm";
+import { todoItems as todoItemsData } from "../data/todos";
 
 export function Main() {
   const [completed, setCompleted] = useState<TodoItem["id"][]>([1, 3]);
-  const [searchQuery, setSearchQuery] = useState<string>("Item 1");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [todoItems, setTodoItems] = useState<TodoItem[]>(todoItemsData);
 
   return (
     <main className="p-4">
@@ -19,6 +21,7 @@ export function Main() {
         setCompleted={setCompleted}
         searchQuery={searchQuery}
       />
+      <TodoForm todoItems={todoItems} setTodoItems={setTodoItems} />
     </main>
   );
 }
